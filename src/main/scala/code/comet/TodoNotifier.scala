@@ -1,7 +1,10 @@
 package code.comet
 
+import code.model.Todo
 import net.liftweb._
 import net.liftweb.http._
+import net.liftweb.http.js.JsCmds
+import net.liftweb.json.JsonAST.JValue
 import net.liftweb.util._
 
 /**
@@ -10,7 +13,7 @@ import net.liftweb.util._
  * the changes are automatically reflected in the browser.
  */
 class TodoNotifier extends CometActor with CometListener {
-  private var msgs: Vector[String] = Vector() // private state
+  private var msgs: List[Todo] = List() // private state
 
   /**
    * When the component is instantiated, register as
@@ -26,12 +29,17 @@ class TodoNotifier extends CometActor with CometListener {
    * cause changes to be sent to the browser.
    */
   override def lowPriority = {
-    case v: Vector[String] => msgs = v; reRender()
+    case m: List[Todo] => {
+      msgs = m
+      val json = net.liftweb.json.compactRender(msgs: JValue)
+      println(s"TodoNotifier received update; sending JSON: $json")
+      partialUpdate(JsCmds.Run(s"console.log('$json'); Todos.reset(); Todos.add($json)"))
+    }
   }
 
   /**
    * Put the messages in the li elements and clear
    * any elements that have the clearable class.
    */
-  def render = "li *" #> msgs & ClearClearable
+  def render = JsCmds.Run("")
 }

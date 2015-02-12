@@ -4,6 +4,8 @@
 // to persist Backbone models within your browser.
 
 // Load the application once the DOM is ready, using `jQuery.ready`:
+var Todos = null;
+
 $(function(){
 
   // Todo Model
@@ -70,7 +72,7 @@ $(function(){
   });
 
   // Create our global collection of **Todos**.
-  var Todos = new TodoList;
+  Todos = new TodoList;
 
   // Todo Item View
   // --------------

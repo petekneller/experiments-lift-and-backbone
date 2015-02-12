@@ -20,6 +20,7 @@ object Todos extends RestHelper {
     case Nil Get _ => CometServer.messages: JValue
 
     case Nil JsonPost Todo(todo) -> _ => {
+      println("Todos received POST")
       CometServer ! todo
       todo: JValue
     }
