@@ -1,6 +1,6 @@
 package code.snippet
 
-import code.comet.ChatServer
+import code.comet.CometServer
 import net.liftweb._
 import net.liftweb.http._
 import net.liftweb.http.js.JsCmds._
@@ -27,7 +27,7 @@ object ChatIn {
    * clears the input.
    */
   def render = SHtml.onSubmit(s => {
-    ChatServer ! s
+    CometServer ! s
     SetValById("chat_in", "")
   })
 }

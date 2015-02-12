@@ -1,5 +1,6 @@
 package code.comet
 
+import code.model.Todo
 import net.liftweb._
 import net.liftweb.actor._
 import net.liftweb.http._
@@ -9,8 +10,10 @@ import net.liftweb.http._
  * It's an Actor so it's thread-safe because only one
  * message will be processed at once.
  */
-object ChatServer extends LiftActor with ListenerManager {
-  private var msgs = Vector("Welcome") // private state
+object CometServer extends LiftActor with ListenerManager {
+  private var msgs = List(Todo("example todo...", 1, false)) // private state
+
+  def messages = msgs
 
   /**
    * When we update the listeners, what message do we send?
@@ -27,6 +30,6 @@ object ChatServer extends LiftActor with ListenerManager {
    * messages, and then update all the listeners.
    */
   override def lowPriority = {
-    case s: String => msgs :+= s; updateListeners()
+    case t: Todo => msgs :+= t; updateListeners()
   }
 }

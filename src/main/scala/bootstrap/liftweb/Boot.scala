@@ -1,5 +1,6 @@
 package bootstrap.liftweb
 
+import code.lib.Todos
 import net.liftweb._
 import util._
 import Helpers._
@@ -22,6 +23,8 @@ class Boot {
 
     // where to search snippet
     LiftRules.addToPackages("code")
+
+    LiftRules.statelessDispatchTable.append(Todos)
 
     // Build SiteMap
     def sitemap = SiteMap(

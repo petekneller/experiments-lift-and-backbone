@@ -9,14 +9,14 @@ import net.liftweb.util._
  * by this component.  When the component changes on the server
  * the changes are automatically reflected in the browser.
  */
-class Chat extends CometActor with CometListener {
+class TodoNotifier extends CometActor with CometListener {
   private var msgs: Vector[String] = Vector() // private state
 
   /**
    * When the component is instantiated, register as
    * a listener with the ChatServer
    */
-  def registerWith = ChatServer
+  def registerWith = CometServer
 
   /**
    * The CometActor is an Actor, so it processes messages.

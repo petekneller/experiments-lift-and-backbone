@@ -38,15 +38,12 @@ $(function(){
   // Todo Collection
   // ---------------
 
-  // The collection of todos is backed by *localStorage* instead of a remote
-  // server.
   var TodoList = Backbone.Collection.extend({
 
     // Reference to this collection's model.
     model: Todo,
 
-    // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+    url: "/api/todos",
 
     // Filter down the list of all todo items that are finished.
     done: function() {
@@ -167,8 +164,7 @@ $(function(){
     },
 
     // At initialization we bind to the relevant events on the `Todos`
-    // collection, when items are added or changed. Kick things off by
-    // loading any preexisting todos that might be saved in *localStorage*.
+    // collection, when items are added or changed.
     initialize: function() {
 
       this.input = this.$("#new-todo");
@@ -215,7 +211,6 @@ $(function(){
     },
 
     // If you hit return in the main input field, create new **Todo** model,
-    // persisting it to *localStorage*.
     createOnEnter: function(e) {
       if (e.keyCode != 13) return;
       if (!this.input.val()) return;
