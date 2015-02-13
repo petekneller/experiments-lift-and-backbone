@@ -10,6 +10,7 @@ resolvers += "releases" at "https://oss.sonatype.org/content/repositories/releas
 
 seq(webSettings :_*)
 
+seq(org.ensime.EnsimePlugin.projectSettings: _*)
 
 unmanagedResourceDirectories in Test <+= (baseDirectory) { _ / "src/main/webapp" }
 
@@ -26,4 +27,3 @@ libraryDependencies ++= {
     "ch.qos.logback"    % "logback-classic"     % "1.0.6"
   )
 }
-
